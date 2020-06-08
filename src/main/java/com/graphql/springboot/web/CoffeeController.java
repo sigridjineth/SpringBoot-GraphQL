@@ -1,6 +1,5 @@
-package com.graphql.springboot.controller;
+package com.graphql.springboot.web;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -8,20 +7,21 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.graphql.springboot.graphprovider.GraphUseCase;
+import com.graphql.springboot.entity.coffee.CoffeeUseCase;
 import graphql.ExecutionResult;
-import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequiredArgsConstructor
-@RequestMapping("/graphql")
-public class GraphController {
+@RequestMapping("/coffees")
+public class CoffeeController {
+	private final CoffeeUseCase coffeeUseCase;
 
-	private final GraphUseCase graphUseCase;
+	public CoffeeController(CoffeeUseCase coffeeUseCase) {
+		this.coffeeUseCase = coffeeUseCase;
+	}
 
 	@PostMapping
-	public ResponseEntity<Object> graphByQuery(@RequestBody String query) {
-		ExecutionResult execute = graphUseCase.execute(query);
+	public ResponseEntity<Object> getCoffeeByQuery(@RequestBody String query) {
+		ExecutionResult execute = coffeeUseCase.execute(query);
 		return new ResponseEntity<>(execute, HttpStatus.OK);
 	}
 }
