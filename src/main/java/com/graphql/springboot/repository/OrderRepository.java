@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.graphql.springboot.entity.Order;
+import com.graphql.springboot.entity.order.Order;
 
 @Repository
 public class OrderRepository {
